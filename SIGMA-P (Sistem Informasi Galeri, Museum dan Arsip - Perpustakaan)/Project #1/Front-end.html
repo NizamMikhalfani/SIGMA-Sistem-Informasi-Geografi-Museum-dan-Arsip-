@@ -1,0 +1,192 @@
+<html>
+<head>
+    <title>SIGMA (Sistem Informasi Geografis Museum dan Arsip)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: linear-gradient(to bottom, #f2f2f2, #fff);
+    background-size: cover;
+    background-position: center;
+    background-image: url('https://images.unsplash.com/photo-1521747116042-5a810fda9664?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDF8fGNhcGl0YWx8ZW58MHx8fHwxNjYyMjY0MjY0&ixlib=rb-1.2.1&q=80&w=1080');
+    margin: 0;
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+    margin: 0 auto;
+}
+
+.card {
+    height: 150px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card i {
+    font-size: 40px;
+    color: #007bff;
+    position: relative;
+    z-index: 2;
+}
+
+.card p {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #333;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 2;
+}
+
+.card:hover p {
+    opacity: 1;
+}
+
+.card.museum {
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5)), url('https://example.com/museum-background.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.card.gallery {
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5)), url('https://example.com/gallery-background.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.card.library {
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5)), url('https://example.com/library-background.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.card.archive {
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5)), url('https://example.com/archive-background.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.5);
+    z-index: 1;
+}
+
+.btn-custom {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.btn-custom:hover {
+    background-color: #0056b3;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+    </style>
+</head>
+<body>
+<h1 id="title" class="text-center" style="font-size: 3em; color: #ffeb3b; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); animation: fadeIn 2s;">Mau kemana hari ini?</h1>
+<div class="card-container">
+    <div class="card museum">
+        <i class="fas fa-landmark" style="color: #007bff;"></i>
+        <p>Museum</p>
+    </div>
+    <div class="card gallery">
+        <i class="fas fa-paint-brush" style="color: #ff9800;"></i>
+        <p>Gallery</p>
+    </div>
+    <div class="card library">
+        <i class="fas fa-book" style="color: #ffeb3b;"></i>
+        <p>Library</p>
+    </div>
+    <div class="card archive">
+        <i class="fas fa-archive" style="color: #9c27b0;"></i>
+        <p>Archive</p>
+    </div>
+</div>
+<br>
+<button class="btn-custom" onclick="randomizeChoice()">Pilihkan untuk saya!</button>
+<p id="result" style="margin-top: 20px; font-size: 18px; font-weight: bold;"></p>
+<script>
+function randomizeChoice() {
+    const cards = document.querySelectorAll('.card');
+    if (cards.length === 0) {
+        document.getElementById('result').innerText = 'Tidak ada pilihan';
+        return;
+    }
+    const randomIndex = Math.floor(Math.random() * cards.length);
+    const selectedCard = cards[randomIndex];
+    const selectedName = selectedCard.querySelector('p').innerText;
+    document.getElementById('result').innerText = `Anda bisa pergi ke: ${selectedName}`;
+    document.getElementById('result').style.color = getRandomColor();
+}
+
+function getRandomColor() {
+    const colors = ['#007bff', '#ff9800', '#ffeb3b', '#9c27b0'];
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
+}
+</script>
+</body>
+</html>

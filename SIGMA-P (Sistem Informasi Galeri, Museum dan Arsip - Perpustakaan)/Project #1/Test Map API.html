@@ -1,0 +1,129 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLAM Locations in Jakarta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-4">
+        <h1 id="title" class="text-3xl font-bold mb-4">GLAM Locations in Jakarta</h1>
+        <div id="map" class="w-full h-96"></div>
+        <div id="info" class="mt-4 p-4 bg-white shadow-md rounded">
+            <h2 class="text-2xl font-semibold">Institution Information</h2>
+            <p id="institution-details" class="mt-2">Click on a marker to see details.</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([-6.2607, 106.7816], 13); // Coordinates for South Jakarta
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Sample data for GLAM locations
+        var glamLocations = [
+    {
+        name: "Perpustakaan Nasional RI",
+        lat: -6.1821,
+        lng: 106.8267,
+        info: "Perpustakaan Nasional Republik Indonesia adalah pusat literasi dan arsip terbesar di Indonesia, berlokasi di Jl. Medan Merdeka Selatan, Jakarta Pusat."
+    },
+    {
+        name: "Museum Nasional Indonesia",
+        lat: -6.1767,
+        lng: 106.8219,
+        info: "Museum Nasional Indonesia atau Museum Gajah menyimpan koleksi artefak sejarah dan budaya dari seluruh Indonesia. Terletak di Jl. Medan Merdeka Barat, Jakarta Pusat."
+    },
+    {
+        name: "Museum Sejarah Jakarta",
+        lat: -6.1352,
+        lng: 106.8135,
+        info: "Museum Sejarah Jakarta atau Museum Fatahillah berlokasi di Kota Tua, Jakarta Barat, menampilkan sejarah perkembangan kota Jakarta."
+    },
+    {
+        name: "Museum Bahari",
+        lat: -6.1255,
+        lng: 106.8106,
+        info: "Museum Bahari berlokasi di kawasan Sunda Kelapa, Jakarta Utara, menyimpan koleksi sejarah maritim Indonesia."
+    },
+    {
+        name: "Museum Si Pitung",
+        lat: -6.1047,
+        lng: 106.8961,
+        info: "Museum Si Pitung adalah rumah panggung tradisional yang didedikasikan untuk mengenang legenda Betawi, Si Pitung. Terletak di Marunda, Jakarta Utara."
+    },
+    {
+        name: "Museum Lubang Buaya",
+        lat: -6.2967,
+        lng: 106.9034,
+        info: "Museum Lubang Buaya adalah museum sejarah tragedi G30S/PKI yang berlokasi di Jakarta Timur."
+    },
+    {
+        name: "Museum Layang-Layang Indonesia",
+        lat: -6.2885,
+        lng: 106.7998,
+        info: "Museum Layang-Layang menyimpan koleksi layang-layang tradisional dan kontemporer dari Indonesia dan mancanegara. Berlokasi di Jakarta Selatan."
+    },
+    {
+        name: "Museum Basuki Abdullah",
+        lat: -6.2979,
+        lng: 106.8235,
+        info: "Museum Basuki Abdullah menyimpan koleksi karya pelukis terkenal Basuki Abdullah. Terletak di Cilandak, Jakarta Selatan."
+    },
+    {
+        name: "Museum Satria Mandala",
+        lat: -6.2361,
+        lng: 106.8191,
+        info: "Museum Satria Mandala adalah museum militer yang menyimpan sejarah perjuangan TNI. Terletak di Jl. Gatot Subroto, Jakarta Selatan."
+    },
+    {
+        name: "Museum Taman Prasasti",
+        lat: -6.1743,
+        lng: 106.8234,
+        info: "Museum Taman Prasasti adalah bekas pemakaman kolonial yang menampilkan prasasti, batu nisan, dan artefak sejarah. Terletak di Jakarta Pusat."
+    },
+    {
+        name: "Museum Tekstil",
+        lat: -6.1856,
+        lng: 106.8089,
+        info: "Museum Tekstil menampilkan koleksi kain tradisional dari berbagai daerah Indonesia. Terletak di Tanah Abang, Jakarta Barat."
+    },
+    {
+        name: "Museum Bank Indonesia",
+        lat: -6.1356,
+        lng: 106.8137,
+        info: "Museum Bank Indonesia menampilkan sejarah ekonomi dan perkembangan mata uang di Indonesia. Berlokasi di Kota Tua, Jakarta Barat."
+    }
+];
+// Fungsi untuk mengacak array menggunakan algoritma Fisher-Yates Shuffle
+function randomizeLocations(locations) {
+    for (let i = locations.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [locations[i], locations[j]] = [locations[j], locations[i]];
+    }
+    return locations;
+}
+
+// Menampilkan hasil randomize
+console.log("Lokasi GLAM Acak:");
+const randomizedLocations = randomizeLocations([...glamLocations]);
+console.log(randomizedLocations);
+
+// Add markers to the map
+randomizedLocations.forEach(function(location) {
+    var marker = L.marker([location.lat, location.lng]).addTo(map);
+    marker.bindPopup(location.name);
+    marker.on('click', function() {
+        document.getElementById('institution-details').innerText = location.info;
+    });
+});
+    </script>
+</body>
+</html>

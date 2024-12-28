@@ -1,0 +1,56 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="Museum & Archive Geographic Information System">
+      <meta name="keywords" content="museum, archive, library, gallery, GIS, maps">
+      <title>SIG-MA | GLAM Institutions Map</title>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="css/style.css">
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+      <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" defer></script>
+      <script src="js/main.js" defer></script>
+  </head>
+  <body>
+      <nav class="navbar">
+          <a href="/" class="logo">SIG-MA</a>
+          <div class="nav-links">
+              <a href="#map">Map</a>
+              <a href="#museums">Museums</a>
+              <a href="#archives">Archives</a>
+              <a href="#libraries">Libraries</a>
+              <a href="#galleries">Galleries</a>
+              <select id="langSelect">
+                  <option value="en">English</option>
+                  <option value="id">Bahasa Indonesia</option>
+              </select>
+          </div>
+      </nav>
+
+      <main>
+          <section class="search-container max-w-2xl mx-auto px-4">
+              <input type="text" 
+                   id="search" 
+                   placeholder="Search institutions by name or location..."
+                   class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
+          </section>
+
+          <section id="map"></section>
+
+          <div class="filter-container">
+              <h3>Filter Institutions</h3>
+              <div class="filters-grid">
+                  <label><input type="checkbox" value="museum"> Museums</label>
+                  <label><input type="checkbox" value="archive"> Archives</label>
+                  <label><input type="checkbox" value="library"> Libraries</label>
+                  <label><input type="checkbox" value="gallery"> Galleries</label>
+              </div>
+          </div>
+      </main>
+
+      <footer>
+          <p>© 2023 SIG-MA. All rights reserved.</p>
+      </footer>
+  </body>
+  </html>
