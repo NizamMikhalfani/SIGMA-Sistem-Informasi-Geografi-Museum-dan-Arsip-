@@ -26,9 +26,13 @@ Peta akan dimuat dengan marker dari data yang disediakan oleh locations.php.
 Klik marker untuk melihat informasi tentang institusi tersebut.
 
 Pengembangan Lebih Lanjut
+
 Integrasi Database: Ganti array statis di locations.php dengan data dari database seperti MySQL.
+
 Fitur Pencarian: Tambahkan fitur untuk mencari lokasi berdasarkan nama atau kategori.
+
 Pengelompokan Marker: Gunakan cluster marker untuk menampilkan banyak lokasi secara efisien.
+
 Hosting: Deploy aplikasi ke hosting seperti Netlify (frontend) dan Heroku atau VPS (backend).
 
 Kontribusi
